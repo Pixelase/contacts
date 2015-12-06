@@ -67,4 +67,13 @@ public class PhoneServiceTest extends AbstractServiceTest<Phone, Integer, PhoneS
 		
 		Assert.assertEquals(saved, found);
 	}
+	
+	@Test
+	public void findOneByNumberTest() {
+		Phone saved = service.save(entity);
+		
+		Phone found = service.findOne(saved.getId());
+		
+		Assert.assertEquals(saved, found);
+	}
 }

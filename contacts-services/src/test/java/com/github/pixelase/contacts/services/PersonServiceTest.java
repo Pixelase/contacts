@@ -37,15 +37,24 @@ public class PersonServiceTest extends AbstractServiceTest<Person, Integer, Pers
 	}
 	
 	@Test
-	public void findAllByFullNameTest() {
+	public void findAllByParamsTest() {
 		List<Person> persons = new ArrayList<>();
 		
 		for (int i = 0; i < RandomUtils.nextInt(1, MAX_ENTITIES_COUNT + 1); i++) {
-			persons.add(new Person(entity.getFirstName(), entity.getFirstName()));
+			persons.add(new Person(entity.getFirstName(), entity.getLastName()));
 		}
 		
 		List<Person> saved = service.save(persons);		
 		List<Person> found = service.findAll(entity.getFirstName(), entity.getLastName());
+		
+		Assert.assertEquals(saved, found);
+	}
+	
+	@Test
+	public void findOneByParamsTest() {
+		Person saved = service.save(entity);
+		
+		Person found = service.findOne(saved.getId());
 		
 		Assert.assertEquals(saved, found);
 	}
