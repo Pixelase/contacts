@@ -41,7 +41,7 @@ public class PersonServiceTest extends AbstractServiceTest<Person, Integer, Pers
 		List<Person> persons = new ArrayList<>();
 		
 		for (int i = 0; i < RandomUtils.nextInt(1, MAX_ENTITIES_COUNT + 1); i++) {
-			persons.add(entity);
+			persons.add(new Person(entity.getFirstName(), entity.getFirstName()));
 		}
 		
 		List<Person> saved = service.save(persons);		

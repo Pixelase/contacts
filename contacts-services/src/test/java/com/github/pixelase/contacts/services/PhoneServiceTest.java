@@ -59,10 +59,10 @@ public class PhoneServiceTest extends AbstractServiceTest<Phone, Integer, PhoneS
 		List<Phone> phones = new ArrayList<>();
 		
 		for (int i = 0; i < RandomUtils.nextInt(1, MAX_ENTITIES_COUNT + 1); i++) {
-			phones.add(entity);
+			phones.add(new Phone(entity.getNumber(), entity.getPerson()));
 		}
 		
-		List<Phone> saved = service.save(phones);		
+		List<? extends Phone> saved = service.save(phones);	
 		List<Phone> found = service.findAll(entity.getNumber());
 		
 		Assert.assertEquals(saved, found);
