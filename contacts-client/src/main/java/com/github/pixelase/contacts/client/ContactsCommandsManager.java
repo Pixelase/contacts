@@ -3,6 +3,8 @@ package com.github.pixelase.contacts.client;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,7 +16,8 @@ import com.github.pixelase.contacts.services.PersonService;
 import com.github.pixelase.contacts.services.PhoneService;
 
 public class ContactsCommandsManager extends CommandsManager {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(ContactsCommandsManager.class);
+	
 	private final ApplicationContext aContext;
 
 	public ContactsCommandsManager(String contexLocation) {
@@ -25,6 +28,7 @@ public class ContactsCommandsManager extends CommandsManager {
 		commands.add(new Command("exit", "Shutdown the program.") {
 			@Override
 			public void execute() {
+				LOGGER.info("{} command execution", name);
 				System.out.println();
 				System.out.print("Program is closing");
 
@@ -44,6 +48,7 @@ public class ContactsCommandsManager extends CommandsManager {
 		commands.add(new Command("help", "Display the help information about commands.") {
 			@Override
 			public void execute() {
+				LOGGER.info("{} command execution", name);
 				System.out.println();
 				for (Command command : commands) {
 					System.out.println(command);
@@ -55,7 +60,8 @@ public class ContactsCommandsManager extends CommandsManager {
 				"Find persons whose full name partially matched with the input string (-n for numbers).") {
 			@Override
 			public void execute() {
-
+				LOGGER.info("{} command execution", name);
+				
 				if (args.length >= 2 && args[0].equals("-n")) {
 					List<Phone> result = phoneService.findAll(args[1]);
 
@@ -102,6 +108,8 @@ public class ContactsCommandsManager extends CommandsManager {
 		commands.add(new Command("info", "Displays detailed information about person (-n for number).") {
 			@Override
 			public void execute() {
+				LOGGER.info("{} command execution", name);
+				
 				System.out.println();
 				if (args.length >= 2 && args[0].equals("-n")) {
 					Phone phone = phoneService.findOne(args[1]);
@@ -128,6 +136,8 @@ public class ContactsCommandsManager extends CommandsManager {
 		commands.add(new Command("save", "Save person (+ number).") {
 			@Override
 			public void execute() {
+				LOGGER.info("{} command execution", name);
+				
 				System.out.println();
 				if (args.length >= 2) {
 					String firstName = args[0];
@@ -173,6 +183,8 @@ public class ContactsCommandsManager extends CommandsManager {
 		commands.add(new Command("show", "Display all persons (-n for numbers).") {
 			@Override
 			public void execute() {
+				LOGGER.info("{} command execution", name);
+				
 				System.out.println();
 				StringBuilder result = new StringBuilder();
 
@@ -211,6 +223,8 @@ public class ContactsCommandsManager extends CommandsManager {
 		commands.add(new Command("delete", "Delete one (-a all) person('s) (-n for numbers).") {
 			@Override
 			public void execute() {
+				LOGGER.info("{} command execution", name);
+				
 				System.out.println();
 
 				List<String> listArgs = Arrays.asList(args);
