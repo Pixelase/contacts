@@ -14,5 +14,9 @@
 			<groupId>com.github.pixelase.contacts</groupId>
 			<artifactId>contacts-services</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.github.pixelase</groupId>
+			<artifactId>java-commands-api</artifactId>
+		</dependency>
 	</dependencies>
 </project>

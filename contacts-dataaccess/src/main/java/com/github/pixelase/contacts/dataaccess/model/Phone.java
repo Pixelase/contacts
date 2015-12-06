@@ -1,5 +1,5 @@
 package com.github.pixelase.contacts.dataaccess.model;
-// Generated 06.12.2015 17:12:47 by Hibernate Tools 4.3.1.Final
+// Generated 06.12.2015 22:21:09 by Hibernate Tools 4.3.1.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +22,8 @@ public class Phone implements Persistable<Integer> {
 
 	private static final long serialVersionUID = 1L;
 	private Integer id;
-	private String number;
 	private Person person;
+	private String number;
 
 	public Phone() {
 		super();
@@ -58,15 +58,6 @@ public class Phone implements Persistable<Integer> {
 		this.id = id;
 	}
 
-	@Column(name = "number")
-	public String getNumber() {
-		return this.number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
 	public Person getPerson() {
@@ -75,6 +66,15 @@ public class Phone implements Persistable<Integer> {
 
 	public void setPerson(Person person) {
 		this.person = person;
+	}
+
+	@Column(name = "number")
+	public String getNumber() {
+		return this.number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
 	@Override
@@ -111,6 +111,10 @@ public class Phone implements Persistable<Integer> {
 	@Override
 	public String toString() {
 		return "Phone [id=" + id + ", number=" + number + "]";
+	}
+
+	public String toDetailedFormat() {
+		return String.format("%s <--> %s", number, person.toSimpleFormat());
 	}
 
 }
