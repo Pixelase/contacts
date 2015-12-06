@@ -13,10 +13,14 @@ import com.github.pixelase.contacts.services.common.AbstractGenericService;
 @Service
 @Transactional
 public class PhoneServiceImpl extends AbstractGenericService<Phone, Integer, PhoneRepository> implements PhoneService {
-	
+
+	@Override
 	public List<Phone> findAll(String number) {
 		return repository.findAll(number);
 	}
 
-	
+	@Override
+	public	Phone findOne(String number) {
+		return repository.findByNumber(number);
+	}
 }

@@ -12,4 +12,6 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
 	
 	@Query(value = "SELECT * FROM phone WHERE number ~* :number", nativeQuery = true)
 	List<Phone> findAll(@Param("number") String number);
+	
+	Phone findByNumber(String number);
 }

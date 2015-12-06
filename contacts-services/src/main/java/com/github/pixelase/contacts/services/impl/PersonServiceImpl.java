@@ -12,11 +12,17 @@ import com.github.pixelase.contacts.services.common.AbstractGenericService;
 
 @Service
 @Transactional
-public class PersonServiceImpl extends AbstractGenericService<Person, Integer, PersonRepository> implements PersonService {
+public class PersonServiceImpl extends AbstractGenericService<Person, Integer, PersonRepository>
+		implements PersonService {
 
 	@Override
 	public List<Person> findAll(String firstName, String lastName) {
 		return repository.findAll(firstName, lastName);
 	}
-	
+
+	@Override
+	public Person findOne(String firstName, String lastName) {
+		return repository.findByFirstNameAndLastName(firstName, lastName);
+	}
+
 }
