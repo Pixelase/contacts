@@ -4,14 +4,20 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
+import com.github.pixelase.contacts.dataaccess.model.Person;
 import com.github.pixelase.contacts.dataaccess.model.Phone;
 
 public interface PhoneRepository extends JpaRepository<Phone, Integer> {
+
+	@Query(value = "DELETE FROM phone WHERE number = ?1 RETURNING *", nativeQuery = true)
+	Phone delete(String number);
 	
-	@Query(value = "SELECT * FROM phone WHERE number ~* :number", nativeQuery = true)
-	List<Phone> findAll(@Param("number") String number);
-	
-	Phone findByNumber(String number);
+	List<Phone> deleteAllByPerson(Person person);
+
+	List<Phone> findAllByNumberContainingIgnoreCase(String number);
+
+	Phone findOneByNumber(String number);
+
+	Phone findOneByPerson(Person person);
 }

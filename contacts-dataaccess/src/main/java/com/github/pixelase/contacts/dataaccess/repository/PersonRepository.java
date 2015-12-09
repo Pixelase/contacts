@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.github.pixelase.contacts.dataaccess.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
-	@Query(value = "SELECT * FROM person WHERE first_name ~* :firstName AND last_name ~* :lastName", nativeQuery = true)
-	List<Person> findAll(@Param("firstName") String firstName, @Param("lastName") String lastName);
+	@Query(value = "DELETE FROM person WHERE first_name = ?1 AND last_name = ?2 RETURNING *", nativeQuery = true)
+	Person delete(String firstName, String lastName);
 
-	Person findByFirstNameAndLastName(String firstName, String lastName);
+	List<Person> findAllByFirstNameContainingIgnoreCaseAndLastNameContainingIgnoreCase(String firstName,
+			String lastName);
+
+	Person findOneByFirstNameAndLastName(String firstName, String lastName);
 }

@@ -17,16 +17,16 @@ public class ConsoleLauncher {
 		try {
 			CommandsPerformer performer = new ContactsCommandsManager("spring-context.xml");
 			String logMessage;
-			
+
 			while (true) {
 				System.out.print(Paths.get("").toAbsolutePath().toString() + ">");
 
 				try {
 					CommandParseResult parseResult = CommandInputParser.parse(CommandInputReader.readLine(System.in));
 					LOGGER.debug(parseResult.toString());
-					
+
 					if (!performer.tryPerform(parseResult.getCommandName(), parseResult.getArgs())) {
-						logMessage =  "Command not found.";
+						logMessage = "Command not found.";
 						System.out.println("\n" + logMessage + "\n");
 						LOGGER.info(logMessage);
 					}

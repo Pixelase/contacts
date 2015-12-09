@@ -55,25 +55,56 @@ public class PhoneServiceTest extends AbstractServiceTest<Phone, Integer, PhoneS
 	}
 
 	@Test
-	public void findAllByNumberTest() {
-		List<Phone> phones = new ArrayList<>();
-		
+	public void deletePhoneByNumberTest() {
+		Phone saved = service.save(entity);
+		Phone deleted = service.delete(entity.getNumber());
+
+		Assert.assertEquals(saved, deleted);
+	}
+
+	@Test
+	public void deleteAllPhonesByPersonTest() {
+		List<Phone> employees = new ArrayList<>();
+
 		for (int i = 0; i < RandomUtils.nextInt(1, MAX_ENTITIES_COUNT + 1); i++) {
-			phones.add(new Phone(entity.getNumber(), entity.getPerson()));
+			employees.add(new Phone(entity.getNumber(), entity.getPerson()));
 		}
-		
-		List<? extends Phone> saved = service.save(phones);	
-		List<Phone> found = service.findAll(entity.getNumber());
-		
+
+		List<Phone> savedPhones = service.save(employees);
+		List<Phone> deletedPhones = service.deleteAll(entity.getPerson());
+
+		Assert.assertEquals(savedPhones, deletedPhones);
+	}
+
+	@Test
+	public void findAllPhonesByPartialMatchingTest() {
+		List<Phone> employees = new ArrayList<>();
+
+		for (int i = 0; i < RandomUtils.nextInt(1, MAX_ENTITIES_COUNT + 1); i++) {
+			employees.add(new Phone(entity.getNumber() + RandomStringUtils.random(5), entity.getPerson()));
+		}
+
+		List<Phone> saved = service.save(employees);
+		List<Phone> found = service.findAllByPartialMatching(entity.getNumber());
+
 		Assert.assertEquals(saved, found);
 	}
-	
+
 	@Test
-	public void findOneByNumberTest() {
+	public void findOnePhoneByNumberTest() {
 		Phone saved = service.save(entity);
-		
-		Phone found = service.findOne(saved.getId());
-		
+
+		Phone found = service.findOne(saved.getNumber());
+
+		Assert.assertEquals(saved, found);
+	}
+
+	@Test
+	public void findOnePhoneByPersonTest() {
+		Phone saved = service.save(entity);
+
+		Phone found = service.findOne(saved.getPerson());
+
 		Assert.assertEquals(saved, found);
 	}
 }

@@ -17,7 +17,7 @@ import com.github.pixelase.contacts.services.PhoneService;
 
 public class ContactsCommandsManager extends CommandsManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ContactsCommandsManager.class);
-	
+
 	private final ApplicationContext aContext;
 
 	public ContactsCommandsManager(String contexLocation) {
@@ -61,9 +61,9 @@ public class ContactsCommandsManager extends CommandsManager {
 			@Override
 			public void execute() {
 				LOGGER.info("{} command execution", name);
-				
+
 				if (args.length >= 2 && args[0].equals("-n")) {
-					List<Phone> result = phoneService.findAll(args[1]);
+					List<Phone> result = phoneService.findAllByPartialMatching(args[1]);
 
 					System.out.println();
 					if (result != null && !result.isEmpty()) {
@@ -83,14 +83,14 @@ public class ContactsCommandsManager extends CommandsManager {
 						firstName = args[0];
 						lastName = args[1];
 
-						result = personService.findAll(firstName, lastName);
+						result = personService.findAllByPartialMatching(firstName, lastName);
 					} else if (args.length == 1) {
-						List<Person> firstNameSearch = personService.findAll(args[0], lastName);
+						List<Person> firstNameSearchResult = personService.findAllByPartialMatching(args[0], lastName);
 
-						if (firstNameSearch.isEmpty()) {
-							result = personService.findAll(firstName, args[0]);
+						if (firstNameSearchResult.isEmpty()) {
+							result = personService.findAllByPartialMatching(firstName, args[0]);
 						} else {
-							result = firstNameSearch;
+							result = firstNameSearchResult;
 						}
 					}
 
@@ -109,7 +109,7 @@ public class ContactsCommandsManager extends CommandsManager {
 			@Override
 			public void execute() {
 				LOGGER.info("{} command execution", name);
-				
+
 				System.out.println();
 				if (args.length >= 2 && args[0].equals("-n")) {
 					Phone phone = phoneService.findOne(args[1]);
@@ -137,7 +137,7 @@ public class ContactsCommandsManager extends CommandsManager {
 			@Override
 			public void execute() {
 				LOGGER.info("{} command execution", name);
-				
+
 				System.out.println();
 				if (args.length >= 2) {
 					String firstName = args[0];
@@ -167,15 +167,16 @@ public class ContactsCommandsManager extends CommandsManager {
 							Phone savedPhone = phoneService.save(new Phone(number, person));
 							person.getPhones().add(savedPhone);
 
-							System.out.println(String.format("Person:\n%s\n" + "Person with number successfully saved.",
-									person.toDetailedFormat()));
+							System.out
+									.println(String.format("Person:\n%s\n" + "Person with number successfully saved.\n",
+											person.toDetailedFormat()));
 						} else {
-							System.out.println("This number is already exists.");
+							System.out.println("This number is already exists.\n");
 						}
 					}
 				} else {
 					System.out.println(
-							"Your input should be in such format:\n" + "<Firstname> <Lastname> [Phone number}.");
+							"Your input should be in such format:\n" + "<Firstname> <Lastname> [Phone number}.\n");
 				}
 
 			}
@@ -184,7 +185,7 @@ public class ContactsCommandsManager extends CommandsManager {
 			@Override
 			public void execute() {
 				LOGGER.info("{} command execution", name);
-				
+
 				System.out.println();
 				StringBuilder result = new StringBuilder();
 
@@ -224,7 +225,7 @@ public class ContactsCommandsManager extends CommandsManager {
 			@Override
 			public void execute() {
 				LOGGER.info("{} command execution", name);
-				
+
 				System.out.println();
 
 				List<String> listArgs = Arrays.asList(args);
