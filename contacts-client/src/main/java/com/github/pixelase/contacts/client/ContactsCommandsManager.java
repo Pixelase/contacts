@@ -68,7 +68,7 @@ public class ContactsCommandsManager extends CommandsManager {
 					System.out.println();
 					if (result != null && !result.isEmpty()) {
 						for (Phone phone : result) {
-							System.out.println(phone.getNumber());
+							System.out.println(phone.getNumber());							
 						}
 					} else {
 						System.out.println("Numbers not found");
@@ -97,7 +97,8 @@ public class ContactsCommandsManager extends CommandsManager {
 					System.out.println();
 					if (result != null && !result.isEmpty()) {
 						for (Person person : result) {
-							System.out.println(person.toDetailedFormat());
+							System.out.println(person.toSimpleFormat());
+							System.out.println();
 						}
 					} else {
 						System.out.println("Persons not found\n");
@@ -116,6 +117,7 @@ public class ContactsCommandsManager extends CommandsManager {
 
 					if (phone != null) {
 						System.out.println(phone.toDetailedFormat());
+						System.out.println();
 
 					} else {
 						System.out.println("Phone number not found.\n");
