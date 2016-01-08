@@ -1,22 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.github.pixelase.contacts</groupId>
-		<artifactId>contacts-parent</artifactId>
-		<version>${projectVersion}</version>
-	</parent>
-	<artifactId>contacts-client</artifactId>
-	<name>contacts-client</name>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.pixelase.contacts</groupId>
+        <artifactId>contacts-parent</artifactId>
+        <version>${projectVersion}</version>
+    </parent>
+    <artifactId>contacts-client</artifactId>
+    <name>contacts-client</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.github.pixelase.contacts</groupId>
-			<artifactId>contacts-services</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.github.pixelase</groupId>
-			<artifactId>java-commands-api</artifactId>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.pixelase.contacts</groupId>
+            <artifactId>contacts-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pixelase</groupId>
+            <artifactId>java-commands-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

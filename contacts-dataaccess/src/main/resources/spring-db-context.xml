@@ -1,57 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-	<context:annotation-config />
-	<context:component-scan base-package="com.github.pixelase.contacts.dataaccess" />
+    <context:annotation-config/>
+    <context:component-scan base-package="com.github.pixelase.contacts.dataaccess"/>
 
-	<tx:annotation-driven mode="proxy"
-		transaction-manager="transactionManager" />
+    <tx:annotation-driven mode="proxy"
+                          transaction-manager="transactionManager"/>
 
-	<context:property-placeholder
-		ignore-unresolvable="true" location="classpath:db.properties" />
+    <context:property-placeholder
+            ignore-unresolvable="true" location="classpath:db.properties"/>
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="${jdbc.url}?currentSchema=${db.schema}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-	</bean>
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="${jdbc.url}?currentSchema=${db.schema}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
 
-	<!-- SPRING - JPA -->
-	<jpa:repositories base-package="com.github.pixelase.contacts.dataaccess" />
+    <!-- SPRING - JPA -->
+    <jpa:repositories base-package="com.github.pixelase.contacts.dataaccess"/>
 
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-		<property name="dataSource" ref="dataSource" />
-		<property name="jpaDialect" ref="jpaDialect" />
-	</bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaDialect" ref="jpaDialect"/>
+    </bean>
 
-	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+    <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
 
-	<bean id="jpaVendorAdapter"
-		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-		<property name="database" value="POSTGRESQL" />
-		<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL9Dialect" />
-		<property name="generateDdl" value="true" />
-		<property name="showSql" value="false" />
-	</bean>
+    <bean id="jpaVendorAdapter"
+          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="POSTGRESQL"/>
+        <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+        <property name="generateDdl" value="true"/>
+        <property name="showSql" value="false"/>
+    </bean>
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
-		<property name="persistenceUnitName" value="jpa-persistence-unit" />
-		<property name="packagesToScan"
-			value="com.github.pixelase.contacts.dataaccess.model" />
-		<property name="dataSource" ref="dataSource" />
-		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
-		<property name="jpaDialect" ref="jpaDialect" />
-	</bean>
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
+        <property name="persistenceUnitName" value="jpa-persistence-unit"/>
+        <property name="packagesToScan"
+                  value="com.github.pixelase.contacts.dataaccess.model"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="jpaDialect" ref="jpaDialect"/>
+    </bean>
 </beans>
 
